@@ -20,4 +20,6 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
     List<Atendimento> findByMonitorIdAndStatus(Long monitorId, SessionStatus status);
 
     List<Atendimento> findByMonitorIdAndDataHoraBetween(Long monitorId, LocalDateTime inicio, LocalDateTime fim);
+
+    boolean existsByDisciplinaId(Long disciplinaId);
 }

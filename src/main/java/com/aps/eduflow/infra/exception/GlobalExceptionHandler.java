@@ -1,5 +1,6 @@
 package com.aps.eduflow.infra.excecao;
 
+import com.aps.eduflow.domain.exception.ConflitoException;
 import com.aps.eduflow.domain.exception.RegraNegocioException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,11 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ConflitoException.class)
+    public ResponseEntity<ErrorResponse> handleConflito(ConflitoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(ex.getMessage()));
+    }
 
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<ErrorResponse> handleRegraNegocio(RegraNegocioException ex) {
