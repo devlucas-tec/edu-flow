@@ -3,7 +3,6 @@ package com.aps.eduflow.domain.dto;
 import com.aps.eduflow.domain.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,6 +29,5 @@ public class CadastroUsuarioRequest {
     @NotBlank(message = "A matrícula é obrigatória")
     private String matricula;
 
-    @NotNull(message = "O perfil de acesso é obrigatório")
     private UserRole role;
 }
