@@ -26,6 +26,17 @@ public class Disciplina {
     @Column(nullable = false, unique = true, length = 20)
     private String codigo;
 
+    private String descricao;
+
+    @Column(nullable = false)
+    private Boolean ativo;
+
+    @OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
+    private List<Monitoria> monitorias;
+
+    @OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
+    private List<Atendimento> atendimentos;
+
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
