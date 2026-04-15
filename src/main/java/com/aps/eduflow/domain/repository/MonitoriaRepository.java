@@ -12,4 +12,6 @@ public interface MonitoriaRepository extends JpaRepository<Monitoria, Long> {
     List<Monitoria> findByDisciplinaId(Long disciplinaId);
 
     boolean existsByMonitorIdAndDisciplinaId(Long monitorId, Long disciplinaId);
+
+    boolean existsByDisciplinaId(Long disciplinaId);
 }
