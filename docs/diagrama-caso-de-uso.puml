@@ -1,0 +1,68 @@
+@startuml
+''' Use case diagram for EduFlow System '''
+
+left to right direction
+skinparam packageStyle rect
+
+actor Administrador
+actor Professor
+actor Monitor
+actor Aluno
+
+rectangle "Sistema EduFlow" {
+  (Fazer Login) as Login
+  (Gerenciar Perfil) as GerenciarPerfil
+
+  rectangle "Gestão Acadêmica" {
+    (Gerenciar Usuários) as UC_User
+    (Gerenciar Disciplinas) as UC_Disciplina
+    (Vincular Monitor) as UC_Vincular
+  }
+
+  rectangle "Fluxo de Monitoria" {
+    (Cadastrar Agenda) as UC_Agenda
+    (Consultar Horários) as UC_Consultar
+    (Agendar Monitoria) as UC_Agendar
+    (Registrar Atendimento) as UC_Registrar
+    (Cancelar Agendamento) as UC_Cancelar
+  }
+
+  rectangle "Validação e Relatórios" {
+    (Validar Atendimentos) as UC_Validar
+    (Visualizar Dashboard) as UC_Dashboard
+    (Gerar Relatório de Horas) as UC_Relatorio
+  }
+}
+
+''' General Use Cases '''
+Aluno -- Login
+Monitor -- Login
+Professor -- Login
+Administrador -- Login
+
+Aluno -- GerenciarPerfil
+Monitor -- GerenciarPerfil
+Professor -- GerenciarPerfil
+
+''' Admin Use Cases '''
+Administrador -- UC_User
+Administrador -- UC_Disciplina
+
+''' Professor Use Cases '''
+Professor -- UC_Vincular
+Professor -- UC_Validar
+Professor -- UC_Dashboard
+Professor -- UC_Relatorio
+
+''' Monitor Use Cases '''
+Monitor -- UC_Agenda
+Monitor -- UC_Registrar
+Monitor -- UC_Cancelar
+Monitor -- UC_Relatorio
+
+''' Aluno Use Cases '''
+Aluno -- UC_Consultar
+Aluno -- UC_Agendar
+Aluno -- UC_Cancelar
+
+@enduml

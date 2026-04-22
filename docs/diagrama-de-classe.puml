@@ -1,0 +1,89 @@
+@startuml
+''' Class Diagram for EduFlow System '''
+
+!theme vibrant
+
+' Enumerações
+enum UserRole {
+  ALUNO
+  MONITOR
+  PROFESSOR
+  ADMIN
+}
+
+enum SessionStatus {
+  AGENDADA
+  CONCLUIDA
+  CANCELADA
+  VALIDADA
+}
+
+' Classes de Entidade
+class Usuario {
+  - id: Long
+  - nome: String
+  - email: String
+  - matricula: String
+  - senhaCriptografada: String
+  - role: UserRole
+}
+
+class Disciplina {
+  - id: Long
+  - nome: String
+  - descricao: String
+}
+
+class Monitoria {
+  - id: Long
+  - horarioInicio: LocalDateTime
+  - horarioFim: LocalDateTime
+  - local: String
+  - status: String
+}
+
+class Atendimento {
+  - id: Long
+  - assunto: String
+  - status: SessionStatus
+  - observacoesMonitor: String
+}
+
+' Controladores (representando a camada de API)
+package "Controllers" {
+  class UsuarioController
+  class DisciplinaController
+  class MonitoriaController
+  class AtendimentoController
+}
+
+' Serviços (representando a camada de negócio)
+package "Services" {
+  class UsuarioService
+  class DisciplinaService
+  class MonitoriaService
+  class AtendimentoService
+}
+
+' Relacionamentos
+Usuario "1" -- "0..*" Atendimento : (Aluno) agenda >
+Usuario "1" -- "0..*" Monitoria : (Monitor) oferece >
+
+Professor "1" -- "0..*" Disciplina : supervisiona >
+Disciplina "1" -- "0..*" Usuario : (Monitor) é vinculado a >
+Disciplina "1" -- "0..*" Monitoria : é tema de >
+
+Monitoria "1" -- "0..*" Atendimento : possui agendamentos >
+
+' Conexões com serviços e controllers (simplificado)
+UsuarioController ..> UsuarioService
+DisciplinaController ..> DisciplinaService
+MonitoriaController ..> MonitoriaService
+AtendimentoController ..> AtendimentoService
+
+UsuarioService ..> Usuario
+DisciplinaService ..> Disciplina
+MonitoriaService ..> Monitoria
+AtendimentoService ..> Atendimento
+
+@enduml
